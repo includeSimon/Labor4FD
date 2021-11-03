@@ -10,7 +10,7 @@ public class Course {
     private int maxEnrollment;
     private List<Student> studentsEnrolled;
     private int credits;
-    private UUID id;       //unique identifier used for comparison between objects of the same class 'Course'
+    private UUID id;       //unique identifier used for comparison between objects of the same class
 
     public Course(String name, Person teacher, int maxEnrolment, int credits) {
         this.name = name;
@@ -69,12 +69,24 @@ public class Course {
 
     @Override
     public String toString() {
-        return "Course name = '" + name +
-                "', teacher = " + teacher +
+        return "Course name = " + name +
+                ", teacher = " + teacher +
                 ", maxEnrollment = " + maxEnrollment +
                 ", credits = " + credits +
                 ", studentsEnrolled=" + studentsEnrolled +
                 ", id=" + id;
+    }
+
+    /**
+     * Method to check if two objects of type class are one and the same
+     * @param other Course object
+     * @return true objects are identical, false otherwise
+     */
+    public boolean equals(Course other) {
+        /* comparing based on id */
+        if(this.id ==  other.getId())
+            return true;
+        return false;
     }
 
 }
