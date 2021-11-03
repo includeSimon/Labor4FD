@@ -16,7 +16,7 @@ public class CourseRepository extends InMemoryRepository<Course>{
     @Override
     public Course findOne(UUID id) throws NullException {
         if(id == null)
-            throw new NullException("id is Null");
+            throw new NullException("id is null");
 
         for(Course course : this.repo)
         {
