@@ -4,25 +4,15 @@ import java.util.List;
 import java.util.UUID;
 
 public class Student extends Person {
-    private long studentId;
     private int totalCredits;
     private List<Course> enrolledCourses;
     private UUID id;       //unique identifier used for comparison between objects of the same class
 
-    public Student(String firstName, String lastName, long studentId, int totalCredits, List<Course> enrolledCourses) {
+    public Student(String firstName, String lastName, int totalCredits, List<Course> enrolledCourses) {
         super(firstName, lastName);
-        this.studentId = studentId;
         this.totalCredits = totalCredits;
         this.enrolledCourses = enrolledCourses;
         this.id = UUID.randomUUID();
-    }
-
-    public long getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(long studentId) {
-        this.studentId = studentId;
     }
 
     public int getTotalCredits() {
@@ -52,19 +42,20 @@ public class Student extends Person {
     @Override
     public String toString() {
         return "Student " +
-                "studentId=" + studentId +
+                "first name = " + firstName +
+                " last name = " + lastName +
+                "studentId=" + id +
                 ", totalCredits=" + totalCredits +
                 ", enrolledCourses=" + enrolledCourses;
     }
 
     /**
-     *
-     * @param Other class object to compare with
+     * Method to check if two objects of type class have the same id
+     * @param other the other object that is compared
      * @return true if the objects match, else false
      */
-
     public boolean equals(Student other) {
-        if(this.studentId ==  other.getStudentId())
+        if(this.id ==  other.getId())
             return true;
         return false;
     }

@@ -78,12 +78,11 @@ public class Course {
     }
 
     /**
-     * Method to check if two objects of type class are one and the same
-     * @param other Course object
+     * Method to check if two objects of type class have the same id
+     * @param other the other object that is compared
      * @return true objects are identical, false otherwise
      */
     public boolean equals(Course other) {
-        /* comparing based on id */
         if(this.id ==  other.getId())
             return true;
         return false;
