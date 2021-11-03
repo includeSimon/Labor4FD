@@ -10,10 +10,6 @@ public abstract class InMemoryRepository<T> implements ICrudRepository<T> {
         this.repo = repo;
     }
 
-    /**
-     * returns all entities
-     * @return all entities
-     */
     @Override
     public Iterable<T> findAll() {
 
