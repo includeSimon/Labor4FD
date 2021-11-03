@@ -5,9 +5,9 @@ public abstract class  Person {
     protected String firstName;
     protected String lastName;
 
-    public Person(String firstName,String lastName){
-        this.firstName=firstName;
-        this.lastName=lastName;
+    public Person(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     public String getFirstName() {
@@ -28,8 +28,8 @@ public abstract class  Person {
 
     @Override
     public String toString() {
-        return "Person{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                '}';
+        return "Person " +
+                "firstName='" + firstName +
+                " lastName='" + lastName;
     }
+}
