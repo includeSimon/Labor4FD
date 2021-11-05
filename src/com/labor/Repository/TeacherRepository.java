@@ -1,24 +1,18 @@
 package com.labor.Repository;
-
-import com.labor.Exceptions.NullException;
 import com.labor.Model.Teacher;
-
 import java.util.List;
-import java.util.UUID;
 
 public class TeacherRepository extends InMemoryRepository<Teacher>{
-    public TeacherRepository(List<Teacher> repo) {
+    public TeacherRepository(List<Teacher> teacherList) {
 
-        super(repo);
+        super(teacherList);
     }
 
 
     @Override
-    public Teacher findOne(UUID id) throws NullException {
-        if(id == null)
-            throw new NullException("id is null");
+    public Teacher findOne(int id) {
 
-        for(Teacher Teacher : this.repo)
+        for(Teacher Teacher : this.objectList)
         {
             if(Teacher.getId() == id)
                 return Teacher;
@@ -29,26 +23,18 @@ public class TeacherRepository extends InMemoryRepository<Teacher>{
 
 
     @Override
-    public Teacher save(Teacher obj) throws NullException {
-
-        if(obj == null)
-            throw new NullException("The object is null");
-
+    public Teacher save(Teacher obj) {
 
         if (this.findOne(obj.getId()) != null)
             return obj;
 
-
-        this.repo.add(obj);
+        this.objectList.add(obj);
         return null;
     }
 
 
     @Override
-    public Teacher update(Teacher obj) throws NullException {
-
-        if(obj == null)
-            throw new NullException("The object is null");
+    public Teacher update(Teacher obj) {
 
         //check if objects exists and return it if it does
         Teacher Teacher = this.findOne(obj.getId());
@@ -56,17 +42,14 @@ public class TeacherRepository extends InMemoryRepository<Teacher>{
             return obj;
 
         //remove old object and insert the new one
-        this.repo.remove(Teacher);
-        this.repo.add(obj);
+        this.objectList.remove(Teacher);
+        this.objectList.add(obj);
         return null;
     }
 
 
     @Override
-    public Teacher delete(UUID id) throws NullException {
-
-        if(id == null)
-            throw new NullException("The object is null");
+    public Teacher delete(int id) {
 
         //object does not exist
         if (this.findOne(id) == null)
@@ -74,7 +57,7 @@ public class TeacherRepository extends InMemoryRepository<Teacher>{
 
         //removing object with the given id and return it
         Teacher deletedTeacherCopy  = this.findOne(id);
-        this.repo.remove(deletedTeacherCopy);
+        this.objectList.remove(deletedTeacherCopy);
 
         return deletedTeacherCopy;
     }

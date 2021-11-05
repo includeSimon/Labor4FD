@@ -1,16 +1,16 @@
 package com.labor.Model;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class Teacher extends Person{
     public List<Course> courses;
-    private UUID id;
+    private int id;
 
-    public Teacher(String firstName, String lastName, List<Course> courses) {
+    public Teacher(int id, String firstName, String lastName) {
         super(firstName, lastName);
-        this.courses = courses;
-        this.id=UUID.randomUUID();
+        this.courses = new ArrayList<>();
+        this.id=id;
     }
 
     public List<Course> getCourses() {
@@ -21,11 +21,11 @@ public class Teacher extends Person{
         this.courses = courses;
     }
 
-    public UUID getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -40,14 +40,12 @@ public class Teacher extends Person{
     }
 
     /**
-     * Method to check if two objects of type class have the same id
+     * Method to check if two objects of type Teacher have the same id
      * @param other the other Object that is compared
      * @return true objects are identical, false otherwise
      */
     public boolean equals(Teacher other) {
-        if(this.id ==  other.getId())
-            return true;
-        return false;
+        return this.id ==  other.getId();
     }
 
 }

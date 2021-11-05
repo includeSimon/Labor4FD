@@ -2,6 +2,7 @@ package com.labor.Model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 public class Course {
@@ -10,15 +11,15 @@ public class Course {
     private int maxEnrollment;
     private List<Student> studentsEnrolled;
     private int credits;
-    private UUID id;       //unique identifier used for comparison between objects of the same class
+    private int id;
 
-    public Course(String name, Person teacher, int maxEnrolment, int credits) {
+    public Course(int id, String name, Person teacher, int maxEnrollment, int credits) {
         this.name = name;
         this.teacher = teacher;
-        this.maxEnrollment = maxEnrolment;
+        this.maxEnrollment = maxEnrollment;
         this.studentsEnrolled= new ArrayList<>();
         this.credits = credits;
-        this.id=UUID.randomUUID();     //initializing a random id for each object
+        this.id=id;     //initializing a random id for each object
     }
 
     public String getName() {return name; }
@@ -35,14 +36,14 @@ public class Course {
         this.teacher = teacher;
     }
 
-    public int getMaxEnrolment() {
+    public int getMaxEnrollment() {
         return maxEnrollment;
     }
 
-    public void setMaxEnrolment(int maxEnrolment) {
-        this.maxEnrollment = maxEnrolment;
+    public void setMaxEnrollment(int maxEnrollment) {
+        this.maxEnrollment = maxEnrollment;
     }
-    //com.labor.Model.Student
+
     public List<Student> getStudentsEnrolled() {
         return studentsEnrolled;
     }
@@ -59,11 +60,11 @@ public class Course {
         this.credits = credits;
     }
 
-    public UUID getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -80,12 +81,10 @@ public class Course {
     /**
      * Method to check if two objects of type class have the same id
      * @param other the other object that is compared
-     * @return true objects are identical, false otherwise
+     * @return true if objects are identical, false otherwise
      */
     public boolean equals(Course other) {
-        if(this.id ==  other.getId())
-            return true;
-        return false;
+        return this.id == other.getId();
     }
 
 }
