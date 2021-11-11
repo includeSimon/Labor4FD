@@ -1,5 +1,6 @@
 package com.labor.Repository;
 
+import com.labor.Exceptions.NullException;
 import com.labor.Model.Teacher;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,27 +32,43 @@ class TeacherRepositoryTest {
 
     @Test
     void findOne() {
-        assertEquals(flyingTeacher, teacherRepo.findOne(1));
+        try {
+            assertEquals(flyingTeacher, teacherRepo.findOne(1));
+        }catch(NullException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     @Test
     void save() {
-    teacherRepo.save(transfigurationTeacher);
-    assertEquals(transfigurationTeacher, teacherRepo.findOne(3));
+        try {
+            teacherRepo.save(transfigurationTeacher);
+            assertEquals(transfigurationTeacher, teacherRepo.findOne(3));
+        }catch(NullException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     @Test
     void update() {
-        Teacher oldTeacher = teacherRepo.findOne(1);
-        oldTeacher.setLastName("Preda");
-        teacherRepo.update(oldTeacher);
+        try {
+            Teacher oldTeacher = teacherRepo.findOne(1);
+            oldTeacher.setLastName("Preda");
+            teacherRepo.update(oldTeacher);
 
-        assertEquals(oldTeacher,teacherRepo.findOne(1));
+            assertEquals(oldTeacher,teacherRepo.findOne(1));
+        }catch(NullException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     @Test
     void delete() {
-        teacherRepo.delete(1);
-        assertNull(teacherRepo.findOne(1));
+        try {
+            teacherRepo.delete(1);
+            assertNull(teacherRepo.findOne(1));
+        }catch(NullException e){
+            System.out.println(e.getMessage());
+        }
     }
 }

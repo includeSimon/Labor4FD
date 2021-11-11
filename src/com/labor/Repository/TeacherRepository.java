@@ -1,4 +1,5 @@
 package com.labor.Repository;
+import com.labor.Exceptions.NullException;
 import com.labor.Model.Teacher;
 import java.util.List;
 
@@ -10,7 +11,9 @@ public class TeacherRepository extends InMemoryRepository<Teacher>{
 
 
     @Override
-    public Teacher findOne(int id) {
+    public Teacher findOne(Integer id) throws NullException {
+        if(id == null)
+            throw new NullException("The Teacher find one id is null");
 
         for(Teacher Teacher : this.objectList)
         {
@@ -23,7 +26,9 @@ public class TeacherRepository extends InMemoryRepository<Teacher>{
 
 
     @Override
-    public Teacher save(Teacher obj) {
+    public Teacher save(Teacher obj) throws NullException{
+        if(obj == null)
+            throw new NullException("The Teacher save object is null");
 
         if (this.findOne(obj.getId()) != null)
             return obj;
@@ -34,7 +39,9 @@ public class TeacherRepository extends InMemoryRepository<Teacher>{
 
 
     @Override
-    public Teacher update(Teacher obj) {
+    public Teacher update(Teacher obj) throws NullException{
+        if(obj == null)
+            throw new NullException("The Teacher update objectt is null");
 
         //check if objects exists and return it if it does
         Teacher Teacher = this.findOne(obj.getId());
@@ -49,7 +56,9 @@ public class TeacherRepository extends InMemoryRepository<Teacher>{
 
 
     @Override
-    public Teacher delete(int id) {
+    public Teacher delete(Integer id) throws NullException{
+        if(id == null)
+            throw new NullException("The Teacher delete id is null");
 
         //object does not exist
         if (this.findOne(id) == null)

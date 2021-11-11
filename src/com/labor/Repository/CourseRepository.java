@@ -14,7 +14,9 @@ public class CourseRepository extends InMemoryRepository<Course>{
 
     //returns the first occurence of course with the given id
     @Override
-    public Course findOne(int id) {
+    public Course findOne(Integer id) throws NullException {
+        if(id == null)
+            throw new NullException("The Course find id is null");
 
         for(Course course : this.objectList)
         {
@@ -27,7 +29,9 @@ public class CourseRepository extends InMemoryRepository<Course>{
 
     //saves the course to repository if it doesn't exist, otherwise the course gets returned
     @Override
-    public Course save(Course obj) {
+    public Course save(Course obj) throws NullException {
+        if(obj == null)
+            throw new NullException("The course save object is null");
 
         if (this.findOne(obj.getId()) != null)
             return obj;
@@ -38,7 +42,9 @@ public class CourseRepository extends InMemoryRepository<Course>{
 
     //modifies a course
     @Override
-    public Course update(Course obj) {
+    public Course update(Course obj) throws NullException {
+        if(obj==null)
+            throw new NullException("The course update object is null");
 
         //check if objects exists and return it if it does
         Course course = this.findOne(obj.getId());
@@ -53,7 +59,9 @@ public class CourseRepository extends InMemoryRepository<Course>{
 
     //deletes a course with given id
     @Override
-    public Course delete(int id) {
+    public Course delete(Integer id) throws NullException  {
+        if(id==null)
+            throw new NullException("The course delete id is null");
 
         //object does not exist
         if (this.findOne(id) == null)

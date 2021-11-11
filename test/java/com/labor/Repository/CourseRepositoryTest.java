@@ -1,5 +1,6 @@
 package com.labor.Repository;
 
+import com.labor.Exceptions.NullException;
 import com.labor.Model.Course;
 import com.labor.Model.Teacher;
 import org.junit.jupiter.api.BeforeEach;
@@ -49,48 +50,65 @@ class CourseRepositoryTest {
     @Test
     void findOne() {
         //searching for course "potions"
-        Course foundCourse = courseRepo.findOne(2);
+        try {
+            Course foundCourse = courseRepo.findOne(2);
 
-        assertEquals(potions,foundCourse);
+            assertEquals(potions,foundCourse);
+        }catch(NullException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     @Test
     void save() {
-    Course defenseAgainstDarkArts = new Course(4, "Defense against the Dark Arts",
-            potionsTeacher,10,10);
+        Course defenseAgainstDarkArts = new Course(4, "Defense against the Dark Arts",
+                potionsTeacher,10,10);
 
-        //saving new course
-        courseRepo.save(defenseAgainstDarkArts);
+        try {
+            //saving new course
+            courseRepo.save(defenseAgainstDarkArts);
 
-        assertEquals(defenseAgainstDarkArts, courseRepo.findOne(4));
+            assertEquals(defenseAgainstDarkArts, courseRepo.findOne(4));
+        }catch(NullException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     @Test
     void update() {
-        //obtaining a course
-        Course newCourse = courseRepo.findOne(1);
 
-        //modifying the course so that it is different from before
-        newCourse.setMaxEnrollment(150);
+        try {
+            //obtaining a course
+            Course newCourse = courseRepo.findOne(1);
 
-        //updating old course
-        courseRepo.update(newCourse);
+            //modifying the course so that it is different from before
+            newCourse.setMaxEnrollment(150);
 
-        //making sure that the old course has been changed
-        assertNotEquals(newCourse, courseRepo.findOne(1));
+            //updating old course
+            courseRepo.update(newCourse);
+
+            //making sure that the old course has been changed
+            assertNotEquals(newCourse, courseRepo.findOne(1));
+        }catch(NullException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     @Test
     void delete() {
-        //obtining a course
-        Course originalCourse = courseRepo.findOne(1);
+        try {
+            //obtining a course
+            Course originalCourse = courseRepo.findOne(1);
 
-        //Dumbledor has been killed (deleting course)
-        courseRepo.delete(1);
+            //Dumbledor has been killed (deleting course)
+            courseRepo.delete(1);
 
-        //trying to retrieve it again
-        Course deletedCourse = courseRepo.findOne(1);
+            //trying to retrieve it again
+            Course deletedCourse = courseRepo.findOne(1);
 
-        assertNull(deletedCourse);
+            assertNull(deletedCourse);
+        }catch(NullException e){
+            System.out.println(e.getMessage());
+        }
     }
 }

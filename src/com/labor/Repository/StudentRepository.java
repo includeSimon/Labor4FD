@@ -1,5 +1,6 @@
 package com.labor.Repository;
 
+import com.labor.Exceptions.NullException;
 import com.labor.Model.Student;
 
 import java.util.List;
@@ -12,7 +13,11 @@ public class StudentRepository extends InMemoryRepository<Student>{
 
 
     @Override
-    public Student findOne(int id){
+    public Student findOne(Integer id) throws NullException {
+        if (id == null) {
+            throw new NullException("The student id is null");
+        }
+
         for(Student Student : this.objectList)
         {
             if(Student.getId() == id)
@@ -24,7 +29,9 @@ public class StudentRepository extends InMemoryRepository<Student>{
 
 
     @Override
-    public Student save(Student obj) {
+    public Student save(Student obj) throws NullException{
+        if(obj == null)
+            throw new NullException("The Student save object is null");
 
         if (this.findOne(obj.getId()) != null)
             return obj;
@@ -36,7 +43,10 @@ public class StudentRepository extends InMemoryRepository<Student>{
 
 
     @Override
-    public Student update(Student obj) {
+    public Student update(Student obj) throws NullException{
+        if(obj == null)
+            throw new NullException("The Student update object is null");
+
 
         //check if objects exists and return it if it does
         Student Student = this.findOne(obj.getId());
@@ -51,7 +61,9 @@ public class StudentRepository extends InMemoryRepository<Student>{
 
 
     @Override
-    public Student delete(int id) {
+    public Student delete(Integer id) throws NullException{
+        if(id == null)
+            throw new NullException("The Course delete id is null");
 
         //object does not exist
         if (this.findOne(id) == null)

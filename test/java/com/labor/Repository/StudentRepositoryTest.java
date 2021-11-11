@@ -1,5 +1,7 @@
 package com.labor.Repository;
 
+import com.labor.Exceptions.NullException;
+import com.labor.Model.Course;
 import com.labor.Model.Student;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,31 +35,47 @@ class StudentRepositoryTest {
 
     @Test
     void findOne() {
-        assertEquals(harryPotter, studentRepo.findOne(1));
+        try {
+            assertEquals(harryPotter, studentRepo.findOne(1));
+        }catch(NullException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     @Test
     void save() {
-        Student ginnyWeasley = new Student(4,"Ginny", "Weasley");
-        studentRepo.save(ginnyWeasley);
+        try {
+            Student ginnyWeasley = new Student(4,"Ginny", "Weasley");
+            studentRepo.save(ginnyWeasley);
 
-        assertEquals(ginnyWeasley,studentRepo.findOne(4));
+            assertEquals(ginnyWeasley,studentRepo.findOne(4));
+        }catch(NullException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     @Test
     void update() {
-        Student olderGinny = studentRepo.findOne(4);
-        olderGinny.setLastName("Potter");
+        try {
+            Student olderGinny = studentRepo.findOne(4);
+            olderGinny.setLastName("Potter");
 
-        studentRepo.update(olderGinny);
+            studentRepo.update(olderGinny);
 
-        assertEquals(olderGinny, studentRepo.findOne(4));
+            assertEquals(olderGinny, studentRepo.findOne(4));
+        }catch(NullException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     @Test
     void delete() {
-        studentRepo.delete(1);
+        try {
+            studentRepo.delete(1);
 
-        assertNull(studentRepo.findOne(1));
+            assertNull(studentRepo.findOne(1));
+        }catch(NullException e){
+            System.out.println(e.getMessage());
+        }
     }
 }
