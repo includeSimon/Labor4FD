@@ -1,0 +1,16 @@
+[ {
+  "firstName" : "Rolanda",
+  "lastName" : "Hooch",
+  "courses" : [ ],
+  "id" : 1
+}, {
+  "firstName" : "Severus",
+  "lastName" : "Snape",
+  "courses" : [ ],
+  "id" : 2
+}, {
+  "firstName" : "Albus",
+  "lastName" : "Dumbledore",
+  "courses" : [ ],
+  "id" : 3
+} ]

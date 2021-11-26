@@ -31,12 +31,10 @@ public class Teacher extends Person{
 
     @Override
     public String toString() {
-        return "Teacher " +
-                "first name = " + firstName +
-                " last name = " + lastName +
-                "courses=" + courses +
-                ", id=" + id +
-                '}';
+        return  " id= " + id +
+                " firstName= " + firstName +
+                " lastName= " + lastName +
+                " courses= " + courses;
     }
 
     /**

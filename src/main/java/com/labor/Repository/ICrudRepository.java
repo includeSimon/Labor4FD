@@ -2,6 +2,8 @@ package com.labor.Repository;
 
 import com.labor.Exceptions.NullException;
 
+import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 public interface ICrudRepository<T> {
@@ -17,7 +19,7 @@ public interface ICrudRepository<T> {
      * returns all stored objects
      * @return all stored objects
      */
-    Iterable<T> findAll() throws NullException;
+    List<T> findAll();
 
 
     /**
@@ -25,7 +27,7 @@ public interface ICrudRepository<T> {
      * @param obj obj different from null
      * @return null if object is saved otherwise obje if id exists
      */
-    T save(T obj) throws NullException;
+    T save(T obj) throws NullException, IOException;
 
 
     /**
@@ -33,7 +35,7 @@ public interface ICrudRepository<T> {
      * @param obj obj different from null
      * @return null - null if object is updated otherwise obj if id doesn't exist
      */
-    T update(T obj) throws NullException;
+    T update(T obj) throws NullException, IOException;
 
 
     /**
@@ -41,6 +43,6 @@ public interface ICrudRepository<T> {
      * @param id id must be not null
      * @return obj or null obj id doesn't exist
      */
-    T delete(Integer id) throws NullException;
+    T delete(Integer id) throws NullException, IOException;
 
 }

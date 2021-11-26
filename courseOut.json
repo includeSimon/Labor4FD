@@ -1,0 +1,37 @@
+[ {
+  "name" : "Flying",
+  "teacher" : {
+    "firstName" : "Rolanda",
+    "lastName" : "Hooch",
+    "courses" : [ ],
+    "id" : 1
+  },
+  "maxEnrollment" : 100,
+  "studentsEnrolled" : [ ],
+  "credits" : 5,
+  "id" : 1
+}, {
+  "name" : "Potions",
+  "teacher" : {
+    "firstName" : "Severus",
+    "lastName" : "Snape",
+    "courses" : [ ],
+    "id" : 2
+  },
+  "maxEnrollment" : 60,
+  "studentsEnrolled" : [ ],
+  "credits" : 6,
+  "id" : 2
+}, {
+  "name" : "Transfiguration",
+  "teacher" : {
+    "firstName" : "Albus",
+    "lastName" : "Dumbledore",
+    "courses" : [ ],
+    "id" : 3
+  },
+  "maxEnrollment" : 200,
+  "studentsEnrolled" : [ ],
+  "credits" : 10,
+  "id" : 3
+} ]

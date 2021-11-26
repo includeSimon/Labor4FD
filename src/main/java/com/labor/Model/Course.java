@@ -7,13 +7,13 @@ import java.util.UUID;
 
 public class Course {
     private String name;
-    private Person teacher;
+    private Teacher teacher;
     private int maxEnrollment;
     private List<Student> studentsEnrolled;
     private int credits;
     private int id;
 
-    public Course(int id, String name, Person teacher, int maxEnrollment, int credits) {
+    public Course(int id, String name, Teacher teacher, int maxEnrollment, int credits) {
         this.name = name;
         this.teacher = teacher;
         this.maxEnrollment = maxEnrollment;
@@ -32,7 +32,7 @@ public class Course {
         return teacher;
     }
 
-    public void setTeacher(Person teacher) {
+    public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
     }
 
@@ -70,12 +70,12 @@ public class Course {
 
     @Override
     public String toString() {
-        return "Course name = " + name +
-                ", teacher = " + teacher +
-                ", maxEnrollment = " + maxEnrollment +
-                ", credits = " + credits +
-                ", studentsEnrolled=" + studentsEnrolled +
-                ", id=" + id;
+        return  " id= " + id+
+                " courseName= " + name +
+                " teacherId= " + teacher.getId() +
+                " maxEnrollment= " + maxEnrollment +
+                " credits= " + credits +
+                " studentsEnrolled= " + studentsEnrolled;
     }
 
     /**
@@ -84,7 +84,15 @@ public class Course {
      * @return true if objects are identical, false otherwise
      */
     public boolean equals(Course other) {
-        return this.id == other.getId();
+        if (this.id != other.getId()
+            || this.getName() != other.getName()
+            || this.getTeacher() != other.getTeacher()
+            || this.getCredits() != other.getCredits()
+            || this.getMaxEnrollment() != other.getMaxEnrollment()
+            || this.getStudentsEnrolled() != other.getStudentsEnrolled())
+                return false;
+
+        return true;
     }
 
 }
