@@ -6,13 +6,10 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.labor.Exceptions.NullException;
 import com.labor.Model.Course;
 import com.labor.Model.Teacher;
-import org.json.simple.JSONArray;
-import org.mortbay.util.IO;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import java.io.File;
 import java.io.IOException;  // Import the IOException class to handle errors
@@ -101,31 +98,32 @@ public class TeacherRepository extends FileRepository<Teacher>{
 
 
     @Override
-    public Teacher save(Teacher obj) throws NullException{
-        if(obj == null)
+    public Teacher save(Teacher teacher) throws NullException{
+        if(teacher == null)
             throw new NullException("The Teacher save object is null");
 
-        if (this.findOne(obj.getId()) != null)
-            return obj;
+        if (this.findOne(teacher.getId()) != null)
+            return teacher;
 
-        //this.repo.add(obj);
+        elemList.add(teacher);
         return null;
     }
 
 
     @Override
-    public Teacher update(Teacher obj) throws NullException{
-        if(obj == null)
-            throw new NullException("The Teacher update objectt is null");
+    public Teacher update(Teacher teacher) throws NullException{
+        if(teacher == null)
+            throw new NullException("The Teacher update object is null");
 
         //check if objects exists and return it if it does
-        Teacher Teacher = this.findOne(obj.getId());
-        if (Teacher == null)
-            return obj;
+        if (findOne(teacher.getId()) == teacher)
+            return teacher;
 
         //remove old object and insert the new one
-        //this.repo.remove(Teacher);
-        //this.repo.add(obj);
+        Teacher oldTeacher = findOne(teacher.getId());
+        elemList.remove(oldTeacher);
+        elemList.add(teacher);
+
         return null;
     }
 
@@ -141,7 +139,7 @@ public class TeacherRepository extends FileRepository<Teacher>{
 
         //removing object with the given id and return it
         Teacher deletedTeacherCopy  = this.findOne(id);
-        //this.repo.remove(deletedTeacherCopy);
+        elemList.remove(deletedTeacherCopy);
 
         return deletedTeacherCopy;
     }

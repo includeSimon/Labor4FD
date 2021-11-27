@@ -1,28 +1,29 @@
 package com.labor.Repository;
 
+import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.labor.Exceptions.NullException;
 import com.labor.Model.Course;
 import com.labor.Model.Student;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class StudentRepository extends FileRepository<Student>{
     public StudentRepository(String fileIn) throws IOException {
-
         super(fileIn);
+        this.elemList = new ArrayList<Student>();
 
         //creating output file "studentOut.txt"
         try {
-            this.fileOut = new File("studentOut.txt");
+            this.fileOut = new File("studentOut.json");
             if (fileOut.createNewFile()) {
                 System.out.println("File created: " + fileOut.getName());
             } else {
-                System.out.println("File already exists.");
+                System.out.println("File " + fileOut + "already exists");
             }
         } catch (IOException e) {
             System.out.println("An error occurred.");
@@ -35,17 +36,21 @@ public class StudentRepository extends FileRepository<Student>{
      * @throws IOException if an error occurred while reading from the file
      */
     public void readFromFile() throws IOException {
-        try {
-            File studentIn = fileIn;
-            Scanner myReader = new Scanner(studentIn);
-            while (myReader.hasNextLine()) {
-                String data = myReader.nextLine();
-                System.out.println(data);
-            }
-            myReader.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
+        Reader reader = new BufferedReader(new FileReader(fileIn));
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode parser = objectMapper.readTree(reader);
+
+        //empty elemList before adding new objects
+        elemList.clear();
+
+        for (JsonNode pm : parser) {
+            //reading from courseIn.json
+            int id = pm.path("id").asInt();
+            String firstName = pm.path("firstName").asText();
+            String lastName = pm.path("lastName").asText();
+
+            //storing information in local repository
+            this.elemList.add(new Student(id,firstName,lastName));
         }
 
     }
@@ -61,20 +66,26 @@ public class StudentRepository extends FileRepository<Student>{
      * @throws IOException if the file has not been opened successfully
      */
     public void writeToFile(List<Student> studentList){
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectWriter writer = objectMapper.writer(new DefaultPrettyPrinter());
+
         try {
-            FileWriter studentWriter = new FileWriter(fileOut);
-
-            for (Student student : studentList)
-                studentWriter.write(student.toString());
-
-            studentWriter.close();
-            System.out.println("Successfully wrote to the file.");
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
+            writer.writeValue(fileOut, studentList);
+        }  catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    public void writeToFile(){
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectWriter writer = objectMapper.writer(new DefaultPrettyPrinter());
+
+        try {
+            writer.writeValue(fileOut, elemList);
+        }  catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public Student findOne(Integer id) throws NullException {
@@ -82,44 +93,42 @@ public class StudentRepository extends FileRepository<Student>{
             throw new NullException("The student id is null");
         }
 
-        /*for(Student Student : this.repo)
-        {
+        for(Student Student : elemList)
             if(Student.getId() == id)
                 return Student;
-        }*/
 
         return null;
     }
 
 
     @Override
-    public Student save(Student obj) throws NullException{
-        if(obj == null)
+    public Student save(Student student) throws NullException{
+        if(student == null)
             throw new NullException("The Student save object is null");
 
-        if (this.findOne(obj.getId()) != null)
-            return obj;
+        if (this.findOne(student.getId()) != null)
+            return student;
 
 
-        //this.repo.add(obj);
+        elemList.add(student);
         return null;
     }
 
 
     @Override
-    public Student update(Student obj) throws NullException{
-        if(obj == null)
+    public Student update(Student student) throws NullException{
+        if(student == null)
             throw new NullException("The Student update object is null");
 
 
         //check if objects exists and return it if it does
-        Student Student = this.findOne(obj.getId());
-        if (Student == null)
-            return obj;
+        if (findOne(student.getId()) == student)
+            return student;
 
         //remove old object and insert the new one
-        //this.repo.remove(Student);
-        //this.repo.add(obj);
+        Student oldStudent = findOne(student.getId());
+        elemList.remove(oldStudent);
+        elemList.add(student);
         return null;
     }
 
@@ -134,8 +143,8 @@ public class StudentRepository extends FileRepository<Student>{
             return null;
 
         //removing object with the given id and return it
-        Student deletedStudentCopy  = this.findOne(id);
-        //this.repo.remove(deletedStudentCopy);
+        Student deletedStudentCopy  = findOne(id);
+        elemList.remove(deletedStudentCopy);
 
         return deletedStudentCopy;
     }

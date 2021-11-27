@@ -40,12 +40,11 @@ public class Student extends Person {
 
     @Override
     public String toString() {
-        return "Student " +
-                "first name = " + firstName +
-                " last name = " + lastName +
-                "studentId=" + id +
-                ", totalCredits=" + totalCredits +
-                ", enrolledCourses=" + enrolledCourses;
+        return " First name= " + firstName +
+                " last name= " + lastName +
+                " studentId= " + id +
+                " totalCredits= " + totalCredits +
+                " enrolledCourses= " + enrolledCourses;
     }
 
     /**

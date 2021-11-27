@@ -12,9 +12,9 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import java.io.File;  // Import the File class
-import java.io.IOException;  // Import the IOException class to handle errors
-import java.util.Scanner;
+import java.io.File;
+import java.io.IOException;
+
 
 public class CourseRepository extends FileRepository<Course>{
     private TeacherRepository teacherRepo;

@@ -1,0 +1,19 @@
+[ {
+  "firstName" : "Harry",
+  "lastName" : "Potter",
+  "totalCredits" : 0,
+  "enrolledCourses" : [ ],
+  "id" : 1
+}, {
+  "firstName" : "Hermione",
+  "lastName" : "Granger",
+  "totalCredits" : 0,
+  "enrolledCourses" : [ ],
+  "id" : 2
+}, {
+  "firstName" : "Ron",
+  "lastName" : "Weasly",
+  "totalCredits" : 0,
+  "enrolledCourses" : [ ],
+  "id" : 3
+} ]
