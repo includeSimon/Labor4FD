@@ -10,7 +10,9 @@ import com.labor.Model.Student;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class StudentRepository extends FileRepository<Student>{
     public StudentRepository(String fileIn) throws IOException {
@@ -153,4 +155,27 @@ public class StudentRepository extends FileRepository<Student>{
     public List<Student> findAll(){
         return  elemList;
     }
+
+    /**
+     * Sorts Student objects by id ascending
+     * @return studentList list of sorted students
+     */
+    public List<Student> sortById(){
+        List<Student> studentList = elemList;
+
+        Collections.sort(studentList, (stud1,stud2) -> Integer.compare(stud1.getId(), stud2.getId()));
+
+        return studentList;
+    }
+
+    /**
+     * Filters a list of Students so that every student first name starts with letter 'H'
+     * @return filtered student list
+     */
+    public List<Student> filterByName() {
+        return elemList.stream()
+                .filter(c -> c.getFirstName().startsWith("H"))
+                .collect(Collectors.toList());
+    }
 }
+

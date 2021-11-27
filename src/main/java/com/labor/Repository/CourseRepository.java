@@ -6,14 +6,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.labor.Exceptions.NullException;
 import com.labor.Model.Course;
+import com.labor.Model.Student;
 import com.labor.Model.Teacher;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.stream.Collectors;
 
 
 public class CourseRepository extends FileRepository<Course>{
@@ -175,5 +178,25 @@ public class CourseRepository extends FileRepository<Course>{
     @Override
     public List<Course> findAll(){
         return  elemList;
+    }
+
+
+
+    public List<Course> sortByName(){
+        List<Course> courseList = elemList;
+
+        Collections.sort(courseList, (elem1,elem2) -> elem1.getName().compareTo(elem2.getName()));
+
+        return courseList;
+    }
+
+    /**
+     * Filters course list so that every course has at least 100 enrollment places
+     * @return list of filtered courses
+     */
+    public List<Course> filterByEnrollmentPlaces() {
+        return elemList.stream()
+                .filter(c -> c.getMaxEnrollment() >= 100)
+                .collect(Collectors.toList());
     }
 }
