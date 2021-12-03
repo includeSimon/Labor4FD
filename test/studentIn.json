@@ -1,0 +1,20 @@
+[
+  {
+    "id" : 2,
+    "firstName" : "Harry",
+    "lastName" : "Potter"
+  },
+
+  {
+    "id" : 3,
+    "firstName" : "Hermione",
+    "lastName" : "Granger"
+  },
+
+  {
+    "id" : 1,
+    "firstName" : "Ron",
+    "lastName" : "Weasly"
+  }
+
+]

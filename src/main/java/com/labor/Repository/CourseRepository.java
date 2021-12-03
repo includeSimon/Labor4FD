@@ -68,8 +68,13 @@ public class CourseRepository extends FileRepository<Course>{
             //getting teacher from teacher Repo
             Teacher teacher = teacherRepo.findOne(teacherId);
 
+            //creating course
+            Course course = new Course(id,name,teacher,maxEnrollment,credits);
             //storing information in local repository
-            this.elemList.add(new Course(id,name,teacher,maxEnrollment,credits));
+            this.elemList.add(course);
+
+            //adding course to teacher list of courses
+            teacher.addCourse(course);
         }
     }
 

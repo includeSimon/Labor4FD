@@ -1,5 +1,4 @@
 package com.labor.Repository;
-
 import com.labor.Controller.RegistrationSystem;
 import com.labor.Exceptions.InputException;
 import com.labor.Exceptions.NullException;
@@ -10,6 +9,7 @@ import com.labor.Model.Teacher;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -61,8 +61,12 @@ public class ControllerTest {
     }
 
     @Test
-    public void deletedCourseFromTeacher() throws NullException, InputException {
-        //deleted flying course from rolanda hooch
+    public void deletedCourseFromTeacher() throws NullException, InputException, IOException, SizeException {
+        regSys.readDataFromFile();
+        //enroll ron weasly to flying course
+        regSys.register(courseRepo.findOne(1),studentRepo.findOne(1));
+
+        //delete the course
         regSys.deleteCourseFromTeacher(teacherRepo.findOne(1),courseRepo.findOne(1));
 
         //now ron weasly is not enrolled in any course

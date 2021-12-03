@@ -10,6 +10,7 @@ import com.labor.Repository.CourseRepository;
 import com.labor.Repository.StudentRepository;
 import com.labor.Repository.TeacherRepository;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,8 +28,10 @@ public class RegistrationSystem {
     /**
      * for each repository reads data from file
      */
-    public void readDataFromFile(){
-
+    public void readDataFromFile() throws IOException, NullException {
+        teacherRepo.readFromFile();
+        courseRepo.readFromFile();
+        studentRepo.readFromFile();
     }
 
     /**

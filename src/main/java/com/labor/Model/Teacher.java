@@ -17,6 +17,8 @@ public class Teacher extends Person{
         return courses;
     }
 
+    public void addCourse(Course course){this.courses.add(course);}
+
     public void setCourses(List<Course> courses) {
         this.courses = courses;
     }
