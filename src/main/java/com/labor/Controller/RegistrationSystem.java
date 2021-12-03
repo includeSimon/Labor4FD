@@ -248,7 +248,7 @@ public class RegistrationSystem {
      * desc: Recalculate the sum of credits provided from the enrolled courses of the students
      * Update the credits sum for each student
      */
-    public void updateStudentsCredits() {
+    public void updateStudentCredits() {
         List<Student> stud = this.getAllStudents();
 
         for (Student student : stud) {
@@ -286,7 +286,7 @@ public class RegistrationSystem {
         }
 
         /*update all students*/
-        this.updateStudentsCredits();
+        this.updateStudentCredits();
     }
 
 
