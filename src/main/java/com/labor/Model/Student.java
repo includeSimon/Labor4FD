@@ -1,10 +1,11 @@
 package com.labor.Model;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Student extends Person {
-    private int totalCredits;
+    private int totalCredits = 0;
     private List<Course> enrolledCourses;
     private int id;
 
@@ -12,6 +13,14 @@ public class Student extends Person {
         super(firstName, lastName);
         this.enrolledCourses = new ArrayList<>();
         this.id = id;
+    }
+
+    public void addCourse(Course course) throws IOException{
+        if (enrolledCourses.contains(course))
+            throw new IOException();
+
+        enrolledCourses.add(course);
+        totalCredits += course.getCredits();
     }
 
     public int getTotalCredits() {
@@ -43,8 +52,7 @@ public class Student extends Person {
         return " First name= " + firstName +
                 " last name= " + lastName +
                 " studentId= " + id +
-                " totalCredits= " + totalCredits +
-                " enrolledCourses= " + enrolledCourses;
+                " totalCredits= " + totalCredits;
     }
 
     /**

@@ -5,9 +5,11 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.labor.Exceptions.NullException;
+import com.labor.Exceptions.SizeException;
 import com.labor.Model.Course;
 import com.labor.Model.Student;
 import com.labor.Model.Teacher;
+import org.mortbay.util.IO;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -21,10 +23,12 @@ import java.util.stream.Collectors;
 
 public class CourseRepository extends FileRepository<Course>{
     private TeacherRepository teacherRepo;
+    private StudentRepository studentRepo;
 
-    public CourseRepository(String fileIn, TeacherRepository teacherRepo) throws IOException{
+    public CourseRepository(String fileIn, TeacherRepository teacherRepo, StudentRepository studentRepo) throws IOException{
         super(fileIn);
         this.teacherRepo = teacherRepo; //we need a teacher repo reference for creating a course
+        this.studentRepo = studentRepo;
         this.elemList = new ArrayList<Course>();
 
         //creating output file "courseOut.txt" (functions as a repository)
@@ -45,8 +49,6 @@ public class CourseRepository extends FileRepository<Course>{
      * Trying to read from "courseIn." file
      * @throws IOException if an error occured while reading from the file
      */
-    //interesant e faptul ca s-a modificat diagrama uml, in sensul ca aceasta clasa depinde acum de clasa Teacher,
-    //intrucat avem nevoie sa obtinem obiectul teacher necesar pentru crearea cursului
     public void readFromFile() throws IOException, NullException {
         Reader reader = new BufferedReader(new FileReader(fileIn));
         ObjectMapper objectMapper = new ObjectMapper();
@@ -68,6 +70,28 @@ public class CourseRepository extends FileRepository<Course>{
 
             //storing information in local repository
             this.elemList.add(new Course(id,name,teacher,maxEnrollment,credits));
+        }
+    }
+
+    public void readStudentCourses() throws IOException, NullException, SizeException {
+        Reader reader = new BufferedReader(new FileReader("studentCourses.json"));
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode parser = objectMapper.readTree(reader);
+
+        for (JsonNode pm : parser) {
+            //reading from courseIn.json
+            int studentId = pm.path("studentId").asInt();
+            int courseId = pm.path("courseId").asInt();
+
+            //retrieving course
+            try {
+                Course course = findOne(courseId);
+                Student student = studentRepo.findOne(studentId);
+                course.enrollStudent(student);
+                student.addCourse(course);
+            } catch (NullException e){//| SizeException e){
+                e.printStackTrace();
+            }
         }
     }
 

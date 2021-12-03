@@ -1,9 +1,10 @@
 package com.labor.Model;
 
+import com.labor.Exceptions.SizeException;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
 
 public class Course {
     private String name;
@@ -20,6 +21,14 @@ public class Course {
         this.studentsEnrolled= new ArrayList<>();
         this.credits = credits;
         this.id=id;     //initializing a random id for each object
+    }
+
+    public void enrollStudent(Student student) throws SizeException {
+        if (studentsEnrolled.size() == maxEnrollment)
+            throw new SizeException("The course " + toString() + " has the maximum number of students enrolled");
+
+        //enrolling student in course
+        studentsEnrolled.add(student);
     }
 
     public String getName() {return name; }
