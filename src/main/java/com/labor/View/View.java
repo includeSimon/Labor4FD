@@ -26,14 +26,14 @@ public class View {
         System.out.print("3. retrieve courses with free places\n");
         System.out.print("4. retrieve students enrolled for a course\n");
         System.out.print("5. delete course from teacher\n");
-        System.out.print("6. update student credits");
-        System.out.print("7. modify course credits");
-        System.out.print("8. get all students");
-        System.out.print("9. get all courses");
-        System.out.print("10. get all teachers");
-        System.out.print("11. find one student");
-        System.out.print("12. find one course");
-        System.out.print("13. find one teacher");
+        System.out.print("6. update student credits\n");
+        System.out.print("7. modify course credits\n");
+        System.out.print("8. get all students\n");
+        System.out.print("9. get all courses\n");
+        System.out.print("10. get all teachers\n");
+        System.out.print("11. find one student\n");
+        System.out.print("12. find one course\n");
+        System.out.print("13. find one teacher\n");
     }
 
     public void registerStudent() throws InputException, NullException, SizeException {

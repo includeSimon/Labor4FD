@@ -45,8 +45,8 @@ public class RegistrationSystem {
      *                       if course has no free places or if student is already enrolled
      */
     public boolean register(Course course, Student student) throws NullException, SizeException, InputException {
+        //check if the course provided as a parameter exists in repository
         try {
-            //check if the course provided as a parameter exists in repository
             if (courseRepo.findOne(course.getId()) == null) {
                 throw new NullException("The course " + course.getName() + " doesn't exist");
             }
@@ -65,7 +65,7 @@ public class RegistrationSystem {
         }
 
         //check if course has free places
-        List<Student> enrolledStudents = course.getStudentsEnrolled();    //all students enrolled in the course
+        List<Student> enrolledStudents = course.getStudentsEnrolled();
 
         if (enrolledStudents.size() == course.getMaxEnrollment()) {
             throw new SizeException("Course" + course.getName() + " has no free places!");

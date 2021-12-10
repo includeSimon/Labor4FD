@@ -46,7 +46,8 @@ public class CourseRepository extends FileRepository<Course>{
     }
 
     /**
-     * Trying to read from "courseIn." file
+     * Trying to read from "courseIn" file
+     *
      * @throws IOException if an error occured while reading from the file
      */
     public void readFromFile() throws IOException, NullException {
@@ -102,6 +103,7 @@ public class CourseRepository extends FileRepository<Course>{
 
     /**
      * appends course objects to the "courseOut.txt" file
+     *
      * @param courseList the course list we want to write
      * @throws IOException if the file has not been opened successfully
      */
@@ -129,6 +131,7 @@ public class CourseRepository extends FileRepository<Course>{
 
     /**
      * Finds element by searching line-by-line in repository file
+     *
      * @param id id of searched object
      * @return  course object if it exists or null otherwise
      * @throws NullException if id is of null value
@@ -147,6 +150,7 @@ public class CourseRepository extends FileRepository<Course>{
 
     /**
      * Saving a course by appending to the already existing file repository
+     *
      * @param course object course to be appended
      * @return null if finished successfully or course object if it already exists in file repository
      * @throws NullException if the course parameter is of null value
@@ -166,6 +170,7 @@ public class CourseRepository extends FileRepository<Course>{
 
     /**
      * Updating by creating
+     *
      * @param course course to be updated
      * @return course if it already exists, null otherwise
      * @throws NullException if course is null
@@ -221,6 +226,7 @@ public class CourseRepository extends FileRepository<Course>{
 
     /**
      * Filters course list so that every course has at least 100 enrollment places
+     *
      * @return list of filtered courses
      */
     public List<Course> filterByEnrollmentPlaces() {
